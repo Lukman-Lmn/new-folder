@@ -38,7 +38,9 @@
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$chat['destination'] = $_POST['destination'];
 		$chat['msg'] = $_POST['msg'];
-		$client->emit('chat',$chat);
+    $chat['browser'] = 'Browser Name';
+		//$client->emit('chat',$chat);
+    $client->emit('chat message',$chat);
 	}
 
 	$client->close();
@@ -46,11 +48,12 @@
 	?>
 
     <ul id="messages"></ul>
-    <form action="client.php" method="POST">
+    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="POST">
       <input name="destination" autocomplete="off" placeholder="destination" />
       <input name="msg" autocomplete="off" placeholder="your message" />
       <button>Send</button>
     </form>
+
 
   </body>
 </html>
