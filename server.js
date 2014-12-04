@@ -13,24 +13,24 @@ var user_data = [];
 io.on('connection', function (socket){
     logger.info('SocketIO > Connected socket ' + socket.id);
 
-    // Get data from CLIENT
+    // Get socket.id from client
+    socket.on('giveUserComputerData', function(user_browser_user_agent){
+        user_data[socket.id] = user_browser_user_agent;
+
+        //Send socket.id to client its self
+        io.to(socket.id).emit('giveUserHisBrowserAgent', 'You are ' + user_browser_user_agent + ' (' + socket.id + ')', socket.id);
+    });
+
+    // Get chat data from client
     socket.on('chat message', function(chat){
         console.log(chat.destination + ' : ' + chat.msg);
 
-        //this is for 
+        //this is for set timeout
         setTimeout(function() {
-          // Send data to ALL CLIENT
+          // Send data to spesific client & sender it self
           io.to(chat.destination).emit('chat message', chat.msg);
           io.to(socket.id).emit('chat message', chat.msg);
-          //io.emit('chat message', chat.destination + ' : ' + chat.msg);
         }, 0);
-    });
-
-    socket.on('chat',function(data){
-    	console.log(data);
-        //io.to(destination).emit('chat', user_browser + ' : ' + msg);
-        //io.to(socket.id).emit('chat', user_browser + ' : ' + msg);
-        io.emit('msg_client',data.msg);
     });
 
     socket.on('disconnect', function () {

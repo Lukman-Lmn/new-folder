@@ -39,7 +39,8 @@
 		$chat['destination'] = $_POST['destination'];
 		$chat['msg'] = $_POST['msg'];
     $chat['browser'] = 'Browser Name';
-		//$client->emit('chat',$chat);
+    
+    //send data to socket.io server
     $client->emit('chat message',$chat);
 	}
 
