@@ -16,16 +16,6 @@
   <body>
   
 	<?php
-	/**
-	 * This file is part of the Elephant.io package
-	 *
-	 * For the full copyright and license information, please view the LICENSE file
-	 * that was distributed with this source code.
-	 *
-	 * @copyright Wisembly
-	 * @license   http://www.opensource.org/licenses/MIT-License MIT License
-	 */
-
 	use ElephantIO\Client,
 	    ElephantIO\Engine\SocketIO\Version1X;
 
@@ -42,10 +32,10 @@
 	}
 
 	$client->close();
-
 	?>
 
     <ul id="messages"></ul>
+    
     <form action="client.php" method="POST">
       <input name="destination" autocomplete="off" placeholder="destination" />
       <input name="msg" autocomplete="off" placeholder="your message" />

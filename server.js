@@ -1,15 +1,21 @@
-var server     = require('http').createServer(),
-    io         = require('socket.io')(server),
-    logger     = require('winston'),
-    port       = 9900;
+// Default Modules from nodeJS, etc
+var http  = require('http');
+var colors = require('colors');
+// My variables
+var port = 9900;
 
-// Logger config
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, { colorize: true, timestamp: true });
-logger.info('SocketIO > listening on port ' + port);
+//this is connection server listen on port
+var server = http.createServer(function(request, response){
+  
+}).listen(port, function(){
+  console.log('Server NodeJS for Client.PHP created. listening on port *:' + port);
+});
+
+// Make the server into Socket IO enabled
+var io = require('socket.io').listen(server);
 
 io.on('connection', function (socket){
-    logger.info('SocketIO > Connected socket ' + socket.id);
+    console.log('user connected, the ID is ' + socket.id);
 
     socket.on('chat',function(data){
     	console.log(data.msg);
@@ -19,9 +25,6 @@ io.on('connection', function (socket){
     });
 
     socket.on('disconnect', function () {
-        logger.info('SocketIO > Disconnected socket ' + socket.id);
+        console.log('User disconnected, the ID is ' + socket.id);
     });
 });
-
-server.listen(port);
-
